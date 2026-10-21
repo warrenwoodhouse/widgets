@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub Commits Blogger Widget Generator</title>
+    <title>GitHub Commits Widget Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -191,7 +191,7 @@
     </section>
 
     <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        <p>Built with GitHub API &bull; Designed for Blogger creators &amp; developers</p>
+        <p>&copy;2026 <a href="https://warrenwoodhouse.blogspot.com/">Warren Woodhouse</a>. &bull; Built with GitHub API &bull; Designed for Blogger creators &amp; developers</p>
     </footer>
 
     <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white text-sm font-medium px-4 py-3 rounded-xl shadow-xl transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center space-x-2">
@@ -419,7 +419,9 @@
                 generic: 'Generic HTML'
             }[platform] || 'Generic HTML';
 
-            return `<!-- GitHub Commits Widget (${platformLabel}) -->
+            return `<!-- GitHub Commits Widget -->
+<!-- Author: Warren Woodhouse (T-Codes) - warrenwoodhouse.blogspot.com -->
+<!-- Documentation URL: warrenwoodhouse.github.io/widgets/githubcommits -->
 <div id="${widgetId}"></div>
 <script>
 (function() {
