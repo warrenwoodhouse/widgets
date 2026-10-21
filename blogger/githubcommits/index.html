@@ -84,6 +84,16 @@
                         </div>
                     </div>
 
+                    <div>
+                        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Platform</label>
+                        <select id="platform" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm">
+                            <option value="blogger" selected>Blogger</option>
+                            <option value="wordpress">WordPress</option>
+                            <option value="tumblr">Tumblr</option>
+                            <option value="generic">Generic HTML</option>
+                        </select>
+                    </div>
+
                     <div class="space-y-3 pt-2 border-t border-slate-800/80">
                         <span class="block text-xs font-semibold uppercase tracking-wider text-slate-400">Display Options</span>
 
@@ -141,14 +151,14 @@
                 <div class="flex items-center justify-between mb-3">
                     <h2 class="text-lg font-semibold text-white flex items-center space-x-2">
                         <i class="fa-solid fa-code text-amber-400"></i>
-                        <span>Blogger HTML Snippet</span>
+                        <span>Embed Snippet</span>
                     </h2>
                     <button onclick="copySnippet()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-medium px-3.5 py-2 rounded-lg transition flex items-center space-x-1.5 shadow">
                         <i class="fa-regular fa-copy" id="copyIcon"></i>
                         <span id="copyText">Copy Snippet</span>
                     </button>
                 </div>
-                <p class="text-xs text-slate-400 mb-3">Copy and paste this snippet directly into your Blogger HTML/JavaScript gadget widget.</p>
+                <p id="platformHelp" class="text-xs text-slate-400 mb-3">Copy and paste this snippet directly into your Blogger HTML/JavaScript gadget widget.</p>
 
                 <div class="relative">
                     <pre class="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs font-mono-code text-slate-300 overflow-x-auto max-h-56 leading-relaxed" id="codeSnippetOutput">Loading snippet...</pre>
@@ -248,6 +258,16 @@
             return 'Just now';
         }
 
+        function getPlatformCopyText(platform) {
+            const map = {
+                blogger: 'Copy and paste this snippet directly into your Blogger HTML/JavaScript gadget widget.',
+                wordpress: 'Copy and paste this snippet into a WordPress Custom HTML block or HTML widget.',
+                tumblr: 'Copy and paste this snippet into a Tumblr HTML or custom code block.',
+                generic: 'Copy and paste this snippet into any plain HTML page or website editor.'
+            };
+            return map[platform] || map.generic;
+        }
+
         async function fetchGitHubCommits(username, limit) {
             const safeUser = sanitizeUsername(username);
 
@@ -302,14 +322,17 @@
             const username = sanitizeUsername(document.getElementById('username').value);
             const limit = parseInt(document.getElementById('limit').value, 10) || 5;
             const themeKey = document.getElementById('theme').value;
+            const platform = document.getElementById('platform').value;
             const showAvatar = document.getElementById('showAvatar').checked;
             const showRepo = document.getElementById('showRepo').checked;
             const showTime = document.getElementById('showTime').checked;
 
+            document.getElementById('platformHelp').textContent = getPlatformCopyText(platform);
+
             const commits = await fetchGitHubCommits(username, limit);
             renderPreviewHTML(commits, username, themeKey, showAvatar, showRepo, showTime);
 
-            const embedCode = generateBloggerSnippet(username, limit, themeKey, showAvatar, showRepo, showTime);
+            const embedCode = generateBloggerSnippet(username, limit, themeKey, showAvatar, showRepo, showTime, platform);
             document.getElementById('codeSnippetOutput').textContent = embedCode;
         }
 
@@ -385,12 +408,18 @@
             container.innerHTML = html;
         }
 
-        function generateBloggerSnippet(username, limit, themeKey, showAvatar, showRepo, showTime) {
+        function generateBloggerSnippet(username, limit, themeKey, showAvatar, showRepo, showTime, platform) {
             const safeUsername = sanitizeUsername(username);
             const widgetId = `github-commits-widget-${safeUsername}-${Math.random().toString(36).slice(2, 8)}`;
-            const config = JSON.stringify({ username: safeUsername, limit, themeKey, showAvatar, showRepo, showTime });
+            const config = JSON.stringify({ username: safeUsername, limit, themeKey, showAvatar, showRepo, showTime, platform });
+            const platformLabel = {
+                blogger: 'Blogger',
+                wordpress: 'WordPress',
+                tumblr: 'Tumblr',
+                generic: 'Generic HTML'
+            }[platform] || 'Generic HTML';
 
-            return `<!-- GitHub Commits Blogger Widget -->
+            return `<!-- GitHub Commits Widget (${platformLabel}) -->
 <div id="${widgetId}"></div>
 <script>
 (function() {
@@ -562,6 +591,7 @@
             document.getElementById('username').value = 'torvalds';
             document.getElementById('limit').value = '5';
             document.getElementById('theme').value = 'github-dark';
+            document.getElementById('platform').value = 'blogger';
             generateWidget();
         }
 
