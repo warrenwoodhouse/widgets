@@ -2,20 +2,24 @@
 Widgets by Warren Woodhouse.
 
 # Blogger Widgets
-* [Contact Form](https://warrenwoodhouse.github.io/blogger/contactform)
-* [GitHub Commits](https://warrenwoodhouse.github.io/blogger/githubcommits)
+* [Contact Form](https://warrenwoodhouse.github.io/widgets/blogger/contactform)
+* [GitHub Commits](https://warrenwoodhouse.github.io/githubcommits)
+* [Tesco Price Checker](https://warrenwoodhouse.github.io/widgets/tesco/pricechecker)
+* [Poppy Appeal](https://warrenwoodhouse.github.io/poppy)
 
 # GitHub Widgets
 * [GitHub Commits](https://warrenwoodhouse.github.io/githubcommits)
+* [Poppy Appeal](https://warrenwoodhouse.github.io/poppy)
 
 # WordPress Widgets
-add
+* [Poppy Appeal](https://warrenwoodhouse.github.io/poppy)
 
 # Tumblr Widgets
 add
 
 # Other Widgets
 * [GitHub Commits](https://warrenwoodhouse.github.io/githubcommits)
+* [Poppy Appeal](https://warrenwoodhouse.github.io/poppy)
 
 # Piczo Widgets
 Archive of my Piczo Widgets.
